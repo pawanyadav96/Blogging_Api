@@ -34,6 +34,7 @@ public class UserController {
 		return new ResponseEntity<>(createduser,HttpStatus.CREATED);
 		
 	}
+//	pawan
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<User> deleteuserhandler(@PathVariable Integer id) throws UserNotFound
