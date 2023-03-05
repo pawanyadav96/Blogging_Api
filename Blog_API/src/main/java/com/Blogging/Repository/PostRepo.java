@@ -10,8 +10,8 @@ import com.Blogging.Entities.User;
 
 public interface PostRepo extends JpaRepository<Post, Integer>{
 	
-	public List<User> findAllByUser(User user);
+	public List<User> findByUser(User user);
 	
-	public List<Category> findAllByCategory(Category category);
+	public List<Category> findByCategory(Category category);
 
 }

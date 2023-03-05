@@ -18,4 +18,6 @@ public interface CategoryService {
 	
 	public Category getById(Integer categoryId) throws CategoryNotFound;
 	
+	
+	
 }
