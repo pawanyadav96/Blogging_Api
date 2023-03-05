@@ -1,9 +1,12 @@
 package com.Blogging.Exceptions;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,6 +39,17 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
 	}
-	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<MyErrorDetails> methodarguumentexception(MethodArgumentNotValidException ex,WebRequest req)
+  {
+		MyErrorDetails err1 = new MyErrorDetails(LocalDateTime.now(),
+				ex.getBindingResult().getFieldError().getDefaultMessage(), req.getDescription(false));
 
+		return new ResponseEntity<MyErrorDetails>(err1, HttpStatus.BAD_REQUEST);
+		
+		
+		
+	
+	  
+  }
 }
