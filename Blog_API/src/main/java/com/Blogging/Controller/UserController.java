@@ -45,5 +45,5 @@ public class UserController {
 		User user =uservice.getUserById(id);
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
-
+// pawan yuadav
 }
