@@ -7,9 +7,7 @@ import com.Blogging.Exceptions.UserNotFound;
 import com.Blogging.Payloads.UserDto;
 
 public interface UserService {
-	
-	
-//	we are taking here dto insted of entities because we just want to use entities as database 
+	 
 	public User createUser(User user);
 	
 	public User updateUser(User user,Integer userId) throws UserNotFound;
