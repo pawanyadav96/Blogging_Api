@@ -60,7 +60,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post updatePost(Post post, Integer postId) throws PostNotFound {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -74,8 +74,8 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<Post> getAllPost() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> posts=prepo.findAll();
+		return posts;
 	}
 
 
@@ -88,22 +88,63 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public List<Post> getPostByUserId(Integer userid) throws UserNotFound, PostNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<User> user=urepo.findById(userid);
+		
+		if(user.isPresent())
+		{
+			User u=user.get();
+			List<Post> posts=u.getPost();
+			
+			if(posts!=null)			
+			{
+				return posts;
+			}
+			else
+			{
+				throw  new PostNotFound("no post send by this user");
+			}
+			
+		}
+		else
+		{
+			throw new UserNotFound("No user present with this id");
+		}
 	}
 
 
 	@Override
 	public List<Post> getPostByCategory(Integer catid) throws CategoryNotFound, PostNotFound {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Category> categories=crepo.findById(catid);
+		if(categories.isPresent())
+		{
+			Category ct=categories.get();
+			List<Post> posts=ct.getPost();
+			
+			return posts;
+		}
+		else
+		{
+			throw new CategoryNotFound("No category found with this id");
+		}
+		//return null;
 	}
 
 
 	@Override
 	public List<Post> getPostBykeyword(String keyword) {
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+
+
+	@Override
+	public Integer countPostByUser(Integer userId) {
+		Optional<User> user=urepo.findById(userId);
+		
+		List<Post> posts=user.get().getPost();
+		return posts.size();
+		
+			
 	}
 
 }

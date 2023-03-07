@@ -17,6 +17,7 @@ public interface PostService {
 	
 	public List<Post> getAllPost();
 	
+	public Integer countPostByUser(Integer userId) ;
 	
 	public Post getPostByID(Integer id) throws PostNotFound;
 	
