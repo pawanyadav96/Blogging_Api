@@ -1,17 +1,6 @@
 # Blogging_api
 
-
-<p>
-        <img
-        align="center"
-        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/Team.jpeg"
-        alt="Coding"
-        width="700"
-        style="display: block"/>
-    </p>
-    <br>
-
-This project is developed by a team of 5 members with the help of the Spring-Boot framework. The main objective of this Web services application is to cater needs of front-end developers to call different types of API as per the requirement.
+This project is developed on  Spring-Boot framework. The main objective of this Web services application is to provide backend API's to the frontend people to utilize it and make a good interactive Blogging website ,where user can write blogs ,comments on posts and all those good stuffs.
 
 
 ## Tech Stack and Tools
@@ -20,56 +9,57 @@ This project is developed by a team of 5 members with the help of the Spring-Boo
 - Spring Data JPA
 - Hibernate
 - MySQL
-- Swagger-UI
 - Lombok
 
 ## ER- Diagram
-<p>
-        <img
-        align="center"
-        src="https://github.com/parimalbiswas/tropical-jellyfish-2222/blob/main/ER%20-DIA.jpg?raw=true"
-        alt="Coding"
-        width="700"
-        style="display: block"/>
-    </p>
-    <br>
 
 
 ## Modules
 - Login Module
-- Restaurant Module
-- Customer Module
-- Order Module
-- Items Module
-- Food Cart Module
-- Bill Module
+- User module
+- Category module
+- Post module
+- Photo upload to post module
 
-## Features
-- Customer and Admin authentication & validation with session uniqueId.
-- Admin Features:
- - Only registered admins with valid session id can do the CRUD operations like add/update/delete.
- - Admin can add restaurants and food items.
- - Admin can remove restaurants and items.
- 
-- Customer Features:
- - Customer can register themselves with the application.
- - Customer can login to get the valid session token(id).
- - View list of available items.
- - Add items to food cart, view cart details, placing the order, update and access other features.
+
+- User Features:
+ - User can register themselves with the application.
+ - Customer can login 
+ - Create post Category wise
+ - Add image to that particular post
+ - Add comments to post
+ - Count number of total posts
+ - Search post by specific keyword
   
 ## Installation & Run
 - To run this API server, you should update the database configuration inside the application.properties file which is present in the src/main/resources folder.
 - Update the port number, username and password as per your local database configuration.
-server.port=8008
-spring.datasource.url=jdbc:mysql://localhost:3306/FoodExpress;
+server.port=8888
+
+#db configururation
+
+spring.datasource.url=jdbc:mysql://localhost:3306/blogging
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.username=your_username_here
-spring.datasource.password=your_password_here
+spring.datasource.username=root
+
+spring.datasource.password=root
+
+spring.jpa.properties.hibernates=org.hibernate.dialect.MySQL8Dialect
+
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+
+project.image=image/
 ```
 ## API Root Endpoint
 ```
-https://localhost:8888/
+https://localhost:8888/api/post
 ```
-```
-https://localhost:8888/swagger-ui.html
-```
+
+
+
