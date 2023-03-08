@@ -14,6 +14,9 @@ This project is developed on  Spring-Boot framework. The main objective of this 
 ## ER- Diagram
 
 
+
+![blogging project (1)](https://user-images.githubusercontent.com/105920390/223695653-f52ad23f-4133-4c5f-a713-69b7af87df12.jpg)
+
 ## Modules
 - Login Module
 - User module
