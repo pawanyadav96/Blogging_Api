@@ -1,5 +1,6 @@
 package com.Blogging.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.Blogging.Entities.Post;
 import com.Blogging.Exceptions.CategoryNotFound;
 import com.Blogging.Exceptions.PostNotFound;
 import com.Blogging.Exceptions.UserNotFound;
+import com.Blogging.Service.Fileupload;
 import com.Blogging.Service.PostService;
 
 import jakarta.validation.Valid;
+import lombok.Value;
 
 @RestController
 @RequestMapping("api/post/")
@@ -29,6 +34,12 @@ public class PostController {
 	
 	@Autowired
 	public PostService pservice;
+	
+	@Autowired
+	private Fileupload fupload;
+	
+	@org.springframework.beans.factory.annotation.Value("${project.image}")
+	private String path;
 	
 	
 	@PostMapping("user/{userId}/category/{catId}")
@@ -67,10 +78,11 @@ public class PostController {
  @GetMapping("allPosts")
  public ResponseEntity<List<Post>> getAllPosts(
 		 
-		 @RequestParam(value ="pageNumber",defaultValue ="1",required =false) Integer pageNumber,
-			@RequestParam(value ="pageSize" ,defaultValue ="5" ,required =false)Integer pageSize)
+		 @RequestParam(value ="pageNumber",defaultValue ="0",required =false) Integer pageNumber,
+			@RequestParam(value ="pageSize" ,defaultValue ="6" ,required =false)Integer pageSize,
+           @RequestParam(value = "sortBy",defaultValue ="postId",required =false) String sortBy )
  {
-	List<Post>posts=pservice.getAllPost(pageNumber,pageSize);
+	List<Post>posts=pservice.getAllPost(pageNumber,pageSize,sortBy);
 	return new ResponseEntity<>(posts,HttpStatus.OK);
  }
       @PutMapping("update/{postId}")
@@ -87,5 +99,27 @@ public class PostController {
 	 return new ResponseEntity<Post> (deletedpost,HttpStatus.OK);
  }
  
+ @GetMapping("search/{keywords}")
+ public ResponseEntity<List<Post>> getPostBytitle(@PathVariable String keywords)
+ {
+	List<Post> posts=pservice.getPostBykeyword(keywords);
+	return new ResponseEntity<>(posts,HttpStatus.OK);
+ }
+ @PostMapping("/image/upload/{postId}")
+ public ResponseEntity<Post> uploadPostImage(@RequestParam ("image")MultipartFile image,@PathVariable Integer postId) throws PostNotFound, IOException
+ {
+	 
+		Post post=pservice.getPostByID(postId);
+	String filename= this.fupload.uploadImage(path,image);
+
+	
+	post.setImagename(filename);
+	
+	Post posts=pservice.updatePost(post, postId);
+	
+	return new ResponseEntity<Post>(posts,HttpStatus.OK);
+	
+	
+ }
  
 }

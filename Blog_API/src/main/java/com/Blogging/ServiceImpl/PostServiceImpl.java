@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.Blogging.Entities.Category;
@@ -102,11 +103,11 @@ public class PostServiceImpl implements PostService{
 
 
 	@Override
-	public List<Post> getAllPost(Integer pageNumber,Integer pageSize) {
+	public List<Post> getAllPost(Integer pageNumber,Integer pageSize,String sortBy) {
 //		int pageSize=5;
 //		int pageNumber=1;
 		
-		Pageable p=PageRequest.of(pageNumber, pageSize);
+		Pageable p=PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
 		
 		Page<Post> posts=prepo.findAll(p);
 		
@@ -178,8 +179,10 @@ else
 
 	@Override
 	public List<Post> getPostBykeyword(String keyword) {
+		List<Post> posts=prepo.findByTitleContaining(keyword);
 		
-		return null;
+		
+		return posts;
 	}
 
 
