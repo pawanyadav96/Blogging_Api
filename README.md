@@ -22,9 +22,9 @@ This project is developed on  Spring-Boot framework. The main objective of this 
 - Photo upload to post module
 
 
-- User Features:
+## User Features:
  - User can register themselves with the application.
- - Customer can login 
+ - User can login 
  - Create post Category wise
  - Add image to that particular post
  - Add comments to post
