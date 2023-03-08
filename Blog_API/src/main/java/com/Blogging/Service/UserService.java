@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.Blogging.Entities.User;
 import com.Blogging.Exceptions.UserNotFound;
-import com.Blogging.Payloads.UserDto;
+
 
 public interface UserService {
 	 

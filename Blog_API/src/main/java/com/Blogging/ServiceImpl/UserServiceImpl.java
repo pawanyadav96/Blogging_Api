@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.Blogging.Entities.User;
 import com.Blogging.Exceptions.UserNotFound;
-import com.Blogging.Payloads.UserDto;
+
 import com.Blogging.Repository.UserRepo;
 import com.Blogging.Service.UserService;
 @Service
