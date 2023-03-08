@@ -15,7 +15,7 @@ public interface PostService {
 	
 	public Post deletePost(Integer postId) throws PostNotFound;
 	
-	public List<Post> getAllPost();
+	public List<Post> getAllPost(Integer pagenumber,Integer pagesize);
 	
 	public Integer countPostByUser(Integer userId) ;
 	

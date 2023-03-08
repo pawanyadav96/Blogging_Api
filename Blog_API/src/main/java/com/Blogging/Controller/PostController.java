@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Blogging.Entities.Post;
@@ -64,9 +65,12 @@ public class PostController {
  }
  
  @GetMapping("allPosts")
- public ResponseEntity<List<Post>> getAllPosts()
+ public ResponseEntity<List<Post>> getAllPosts(
+		 
+		 @RequestParam(value ="pageNumber",defaultValue ="1",required =false) Integer pageNumber,
+			@RequestParam(value ="pageSize" ,defaultValue ="5" ,required =false)Integer pageSize)
  {
-	List<Post>posts=pservice.getAllPost();
+	List<Post>posts=pservice.getAllPost(pageNumber,pageSize);
 	return new ResponseEntity<>(posts,HttpStatus.OK);
  }
       @PutMapping("update/{postId}")
@@ -82,4 +86,6 @@ public class PostController {
 	 Post deletedpost=pservice.deletePost(postId);
 	 return new ResponseEntity<Post> (deletedpost,HttpStatus.OK);
  }
+ 
+ 
 }
