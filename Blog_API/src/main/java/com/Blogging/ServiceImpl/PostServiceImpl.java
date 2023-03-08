@@ -59,16 +59,41 @@ public class PostServiceImpl implements PostService{
 
 
 	@Override
-	public Post updatePost(Post post, Integer postId) throws PostNotFound {
+	public Post updatePost(Post post, Integer postId) throws PostNotFound 
+	{
+		Optional<Post> posts=prepo.findById(postId);
 		
-		return null;
+		if(posts.isPresent())
+		{
+			Post p= new Post();
+			p.setTitle(post.getTitle());
+	    	p.setContent(post.getContent());
+	    	p.setImagename(post.getImagename());
+	    	prepo.save(p);
+	    	return p;
+		}
+		else
+		{
+			throw new PostNotFound("No post with this post id");
+		}
 	}
 
 
 	@Override
 	public Post deletePost(Integer postId) throws PostNotFound {
-		// TODO Auto-generated method stub
-		return null;
+	Optional<Post> post=prepo.findById(postId);
+	
+	if(post.isPresent())
+	{
+		Post postt=post.get();
+		 prepo.delete(postt);
+		 return postt;
+	}
+	else
+	{
+		throw new PostNotFound("No post with this id");
+	}
+		
 	}
 
 
@@ -81,9 +106,18 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post getPostByID(Integer id) throws PostNotFound {
-		// TODO Auto-generated method stub
-		return null;
-	}
+           Optional<Post> posts=prepo.findById(id);
+            if(posts.isPresent())
+     {
+	Post p=posts.get();
+	return p;
+     }
+	
+else
+    {
+	throw new PostNotFound("No post with this id");
+      }
+}
 
 
 	@Override

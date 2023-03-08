@@ -67,6 +67,6 @@ public class PostController {
 	List<Post>posts=pservice.getAllPost();
 	return new ResponseEntity<>(posts,HttpStatus.OK);
  }
- //
+ 
  
 }
