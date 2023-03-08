@@ -65,12 +65,13 @@ public class PostServiceImpl implements PostService{
 		
 		if(posts.isPresent())
 		{
-			Post p= new Post();
-			p.setTitle(post.getTitle());
-	    	p.setContent(post.getContent());
-	    	p.setImagename(post.getImagename());
-	    	prepo.save(p);
-	    	return p;
+			Post pt= posts.get();
+			pt.setTitle(post.getTitle());
+	    	pt.setContent(post.getContent());
+	    	pt.setImagename(post.getImagename());
+	    	Post updatedpost=prepo.save(pt);
+	    	
+	    	return updatedpost;
 		}
 		else
 		{
