@@ -42,6 +42,7 @@ public class PostController {
 	private String path;
 	
 	
+//	For posting post according to that particular user and to category .
 	@PostMapping("user/{userId}/category/{catId}")
 	public ResponseEntity<Post> createpost(@Valid @RequestBody Post post ,@PathVariable Integer userId,@PathVariable Integer catId) throws UserNotFound
 	
@@ -52,6 +53,7 @@ public class PostController {
 		return new ResponseEntity<Post>(posts,HttpStatus.CREATED);
 		
 	}
+//	Get post by entering category id
  @GetMapping("category/{catId}")
  public ResponseEntity<List<Post>> getAllPostByCategoryId(@PathVariable Integer catId)throws CategoryNotFound,PostNotFound
  {
@@ -59,7 +61,7 @@ public class PostController {
 	return new ResponseEntity<List<Post>>(posts,HttpStatus.OK);
  }
  
- 
+//	Get post by entering user id
  @GetMapping("user/{userId}")
  public ResponseEntity<List<Post>> getAllPostByUserId(@PathVariable Integer userId)throws PostNotFound, UserNotFound
  {
@@ -67,14 +69,14 @@ public class PostController {
 	return new ResponseEntity<List<Post>>(posts,HttpStatus.OK);
  }
 
- 
+// Count number of post by user(id)
  @GetMapping("count/user/{userId}")
  public ResponseEntity<Integer> getNumberofpostDoneByuser(@PathVariable Integer userId)
  {
 	Integer i=pservice.countPostByUser(userId);
 	return new ResponseEntity<>(i,HttpStatus.OK);
  }
- 
+// Getting all the post done on website sorting according to title and with pagination
  @GetMapping("allPosts")
  public ResponseEntity<List<Post>> getAllPosts(
 		 
@@ -85,12 +87,15 @@ public class PostController {
 	List<Post>posts=pservice.getAllPost(pageNumber,pageSize,sortBy);
 	return new ResponseEntity<>(posts,HttpStatus.OK);
  }
+// update post by postid
       @PutMapping("update/{postId}")
       public ResponseEntity<Post> updatePostById(@Valid @RequestBody Post post ,@PathVariable Integer postId) throws PostNotFound
       {
     	  Post p=pservice.updatePost(post, postId);
     	  return new ResponseEntity<Post>(p,HttpStatus.OK);
       }
+      
+//      Delete post
  @DeleteMapping("delete/{postId}")
  public ResponseEntity<Post> deletePostById(@PathVariable Integer postId) throws PostNotFound
 
@@ -98,13 +103,15 @@ public class PostController {
 	 Post deletedpost=pservice.deletePost(postId);
 	 return new ResponseEntity<Post> (deletedpost,HttpStatus.OK);
  }
- 
+// Search post by some keywords
  @GetMapping("search/{keywords}")
  public ResponseEntity<List<Post>> getPostBytitle(@PathVariable String keywords)
  {
 	List<Post> posts=pservice.getPostBykeyword(keywords);
 	return new ResponseEntity<>(posts,HttpStatus.OK);
  }
+ 
+// Image uplOADATION ON POST
  @PostMapping("/image/upload/{postId}")
  public ResponseEntity<Post> uploadPostImage(@RequestParam ("image")MultipartFile image,@PathVariable Integer postId) throws PostNotFound, IOException
  {

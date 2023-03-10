@@ -28,6 +28,7 @@ public class CatergoryController  {
 	@Autowired
 	public CategoryService cservice;
 	
+//	to create categories
 	@PostMapping("/create")
 	public ResponseEntity<Category> createCategoryHandler(@Valid @RequestBody Category category) 
 	{
@@ -36,6 +37,8 @@ public class CatergoryController  {
 		return new ResponseEntity<Category>(cat,HttpStatus.CREATED);
 	}
 	
+	
+//	to update category By categoryId
 	@PutMapping("/{catId}")
 	public ResponseEntity<Category> updatecategoryhandler( @Valid @RequestBody Category cat,@PathVariable Integer catId ) throws CategoryNotFound
 	{
@@ -43,12 +46,14 @@ public class CatergoryController  {
 		return new ResponseEntity<>(category,HttpStatus.OK);
 	}
 	
+//	To get all the categories By entering category id
 	@GetMapping("/{catId}")
 	public ResponseEntity<Category> getByidhandler(@PathVariable Integer catId)throws CategoryNotFound
 	{
 		Category category=cservice.getById(catId);
 		return new ResponseEntity<Category>(category,HttpStatus.OK);
 	}
+//	Get all kind of categories
 
 	@GetMapping("/")
 	public ResponseEntity<List<Category>> getAllhandler()
@@ -56,7 +61,7 @@ public class CatergoryController  {
 		List<Category> category=cservice.getAllCatrgories();
 		return new ResponseEntity<List<Category>>(category,HttpStatus.OK);
 	}
-	
+//	 Delete categores by there id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Category> deletehandler(@PathVariable Integer id)throws CategoryNotFound
 	{

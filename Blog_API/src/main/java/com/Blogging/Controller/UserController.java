@@ -26,6 +26,7 @@ public class UserController {
 	@Autowired
 	public UserService uservice;
 	
+//	User created 
 	@PostMapping("/create")
 	public ResponseEntity<User> createUserHandler( @Valid @RequestBody User user)
 	{
@@ -34,7 +35,7 @@ public class UserController {
 		return new ResponseEntity<>(createduser,HttpStatus.CREATED);
 		
 	}
-//	pawan
+//User delete
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<User> deleteuserhandler(@PathVariable Integer id) throws UserNotFound
@@ -42,6 +43,7 @@ public class UserController {
 		User deleteduser=uservice.deleteUser(id);
 		 return new ResponseEntity<>(deleteduser,HttpStatus.OK);
 	}
+//	Get user detail by id
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getById(@PathVariable Integer id) throws UserNotFound
 
@@ -49,6 +51,7 @@ public class UserController {
 		User user =uservice.getUserById(id);
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
+//	Up[date user by userid
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUserHandler(@Valid @RequestBody User user,@PathVariable Integer id) throws UserNotFound
@@ -58,6 +61,7 @@ public class UserController {
 		return new ResponseEntity<User>(usr,HttpStatus.OK);
 		
 	}
+//	Getting list of all the users
 	@GetMapping("/")
 	public ResponseEntity<List<User>> getAllUser() throws UserNotFound
 
