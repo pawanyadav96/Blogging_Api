@@ -125,7 +125,7 @@ public class PostController {
 	Post posts=pservice.updatePost(post, postId);
 	
 	return new ResponseEntity<Post>(posts,HttpStatus.OK);
-	
+//	
 	
  }
  
