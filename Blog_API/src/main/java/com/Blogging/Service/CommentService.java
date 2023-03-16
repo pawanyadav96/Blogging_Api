@@ -8,5 +8,5 @@ public interface CommentService {
 	
 	public Comment createComment(Comment comment,Integer postId) throws PostNotFound;
 
-	void deleteComment(Integer commentId) throws CommentNotFound;
+	Comment deleteComment(Integer commentId) throws CommentNotFound;
 }

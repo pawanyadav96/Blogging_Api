@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +28,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class Post {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -52,7 +53,8 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy="post",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="post",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Comment> comments=new ArrayList<>();
 
 }

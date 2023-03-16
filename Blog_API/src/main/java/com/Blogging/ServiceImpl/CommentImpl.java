@@ -27,15 +27,14 @@ public class CommentImpl implements CommentService{
 		 Optional<Post> post=prepo.findById(postId);
 		  if(post.isPresent()) 
 		  {
+			 Post p= post.get();
 			 
-			  Post pst=post.get();
-			  
-			  pst.getComments().add(comment);
-			  
-			  prepo.save(pst);
-			  
-			  crepo.save(comment);
-			  return comment;
+			 comment.setPost(p);
+			p.getComments().add(comment);
+			 Comment cmt=crepo.save(comment);
+			 prepo.save(p);
+			 return cmt;
+			 
 		  }
 		  else
 		  {
@@ -46,12 +45,13 @@ public class CommentImpl implements CommentService{
 	}
 
 	@Override
-	public void deleteComment(Integer commentId) throws CommentNotFound {
+	public Comment deleteComment(Integer commentId) throws CommentNotFound {
 		Optional<Comment> cmt=crepo.findById(commentId);
 		if(cmt.isPresent())
 		{
 			Comment c=cmt.get();
 			crepo.delete(c);
+			return c;
 		}
 		else
 		{
